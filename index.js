@@ -118,3 +118,196 @@ const array2 = [5,6,7]
 const otherArray2 = [ ...array1, number, ...array2 ]
 
 otherArray2// [1,2,3,4,5,6,7]
+
+
+/*Paametros en objeto 
+Son una funcion que cionsiste en crear objetos a partir de variables sin repetir su nombre como propiedad
+*/
+
+//Antigua Forma
+
+const nombre = "Andres"
+const edad = 23
+
+const objeto = {
+    nombre: nombre,
+    edad: edad
+}
+
+//Nueva forma ES6
+
+const objeto2 = {nombre, edad}
+
+/*Arrow function
+Consiste en una funcion anonima con la siguinete estructura 
+*/
+
+//Antigua forma
+
+function nombre (parámetros){
+    return(valorRetornado)
+}
+
+//Nueva Forma ES6
+
+const nombre2 = (parámetros)=>{
+    return (valorRetornado)
+}
+
+//Si existe un solo parámetro se puede omitir el parentesis
+
+const porDos = num => num*2;
+
+
+
+/*Retorno imprlicito
+Se puede omitir la palabra reservada return y que el codigo sea esrito en una sola linea
+*/
+
+//Antigua forma
+
+function suma (num1, num2){
+    return num1 + num2;
+}
+
+//Arrow function ES6
+
+const suma = (num1, num2) => num1 + num2;
+
+//Si el retorno requiere de mas de una linea se pude envolver la instruccion en parentesis
+
+const suma = (num1, num2) => (
+    num1 + num2
+)
+
+
+
+
+/*Promesa
+Una promesa es una forma de manejar el asincronismo en JavaScript.
+
+Solamente ten presente que la clase Promise y sus métodos then y catch fueron añadidos en ES6, por un problema 
+del manejo del asincronismo con funciones desencadenantes, llamado Callback Hell{target="_blank"}.
+*/
+
+const promesa = () => {
+    return new Promise( (resolve, reject) => {
+        if( something ){ 
+            resolve( "Se ha resuelto la promesa" )
+        }else {
+            reject( "Se ha rechazado la promesa" )
+        }
+    });
+}
+
+promesa()
+    .then( respuesta => console.log(respuesta) ) //En caso que se ejecute resolve
+    .catch( error => console.log(error) ) //En caso que se ejecute reject
+/* Clases 
+La palabra reservada class es una forma para crear clases y manejar la herencia en JavaScript, permitiendo resolver
+ problemas con el paradigma de programación orientada a objetos (POO).
+
+La estructura de clases en JavaScript consiste en:
+
+-Definir la clase con la palabra reservada class, seguido del nombre (por convención se empieza con mayúscula).
+-La función constructora sirve para crear las variables necesarias en la instancia del objeto.
+-Para definir atributos necesitas el contexto this, que representa la instancia del objeto.
+-Métodos para definir las acciones de la clase.
+-Para crear una instancia, deberás declarar una variable e invocar la clase con la palabra reservada new.
+
+*/
+
+class Calculator {
+    constructor() {
+        this.valueA = 0
+        this.valueB = 0
+    }
+    
+    suma(num1, num2){
+        this.valueA = num1
+        this.valueB = num2
+        return this.valueA + this.valueB
+    }
+}
+
+// Instancia
+const calculadora = new Calculator()
+
+calculadora.suma(2,2) //4
+
+
+
+/*Módulos ECMAScript
+ ES6 introduce una forma de compartir código entre los archivos de manera modular. Esto involucra exportar 
+ funciones o variables de un archivo, e importarlas en otros archivos donde se necesite.
+
+ Para explicar cómo funciona las exportaciones e importaciones de código, debes tener mínimo dos archivos, 
+ uno para exportar las funcionalidades y otro que las importe para ejecutarlas.
+*/
+
+
+/*Exportaciones
+consisten en crear funciones o variables para utilizarlas en otros archivos mediante la palabra reservada export.
+ Existen dos formas de exportar, antes de declarar la funcionalidad, o entre llaves {}.
+
+Por ejemplo, en el archivo math_function.js declaramos una función para sumar dos valores, el cual lo exportaremos.
+*/
+
+//math_function.js
+export const add = (x,y) => {
+    return x + y
+}
+//math_function.js
+const add = (x,y) => {
+    return x + y
+}
+
+export { add, otherFunction}
+
+/*Importaciones
+Las importaciones de código consiste en usar funciones o variables de otros archivos mediante la palabra reservada import, 
+que deberán estar siempre lo más arriba del archivo y utilizando el mismo nombre que el archivo original. 
+
+Por ejemplo, importamos la función add del archivo math_function.js para utilizarla en un archivo main.js.
+
+*/
+
+// main.js
+import { add, otherFunction } from './math_functions.js'
+
+add(2,2) //4
+
+
+
+/*Generadores
+Los generadores son funciones que devuelven solamente valor en cada invocación.
+
+Su sintaxis es la siguiente:
+
+-La palabra reservada function* (con el asterisco al final).
+-La palabra reservada yield que hace referencia al valor retornado cada vez que se invoque, recordando el valor anterior.
+-Crear una variable a partir de la función generadora.
+-El método next devuelve un objeto que contiene una propiedad value con cada valor de yield; y otra propiedad done con el 
+valor true o false si el generador ha terminado.
+
+Si el generador se lo invoca y ha retornado todos sus valores de yield, entonces devolverá el objeto con las propiedades 
+value con undefined y un done con true.
+
+*/
+
+//Declaracion
+function* generator(){
+    yield 1
+    yield 2
+    yield 3
+}
+
+//Crear generador
+const generador = generator()
+
+
+//Invocaciones
+generador.next().value //1
+generador.next().value //2
+generador.next().value //3
+generador.next() // {value: undefined, done: true}
